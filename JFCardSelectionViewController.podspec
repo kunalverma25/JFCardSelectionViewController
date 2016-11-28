@@ -135,5 +135,6 @@ Pod::Spec.new do |s|
 
   # s.xcconfig = { "HEADER_SEARCH_PATHS" => "$(SDKROOT)/usr/include/libxml2" }
   s.dependency 'York-Swift-Try-Catch', '~> 0.1'
+  s.dependency 'JFExtensions', '~> 1.0.1'
 
 end
