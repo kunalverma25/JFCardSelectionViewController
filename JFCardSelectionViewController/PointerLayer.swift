@@ -27,29 +27,29 @@ import UIKit
 
 class PointerLayer: CALayer {
     
-    override func drawInContext(ctx: CGContext) {
+    override func draw(in ctx: CGContext) {
         
-        contentsScale = UIScreen.mainScreen().scale
-        let midX = CGRectGetMidX(frame)
-        let midY = CGRectGetMidY(frame)
+        contentsScale = UIScreen.main.scale
+        let midX = frame.midX
+        let midY = frame.midY
         
-        CGContextMoveToPoint(ctx, midX, 16)
-        CGContextAddLineToPoint(ctx, midX + 4, 20)
-        CGContextAddLineToPoint(ctx, midX - 4, 20)
-        CGContextAddLineToPoint(ctx, midX, 16)
-        CGContextSetFillColorWithColor(ctx, UIColor.blackColor().CGColor)
-        CGContextSetStrokeColorWithColor(ctx, UIColor.blackColor().CGColor)
-        CGContextSetLineWidth(ctx, 1)
-        CGContextDrawPath(ctx, .Fill)
+        ctx.move(to: CGPoint(x: midX, y: 16))
+        ctx.addLine(to: CGPoint(x: midX + 4, y: 20))
+        ctx.addLine(to: CGPoint(x: midX - 4, y: 20))
+        ctx.addLine(to: CGPoint(x: midX, y: 16))
+        ctx.setFillColor(UIColor.black.cgColor)
+        ctx.setStrokeColor(UIColor.black.cgColor)
+        ctx.setLineWidth(1)
+        ctx.drawPath(using: .fill)
         
-        CGContextMoveToPoint(ctx, midX, 20)
-        CGContextAddLineToPoint(ctx, midX, midY)
-        CGContextAddLineToPoint(ctx, midX - 1, midY)
-        CGContextMoveToPoint(ctx, midX - 1, 20)
-        CGContextSetFillColorWithColor(ctx, UIColor.whiteColor().CGColor)
-        CGContextSetStrokeColorWithColor(ctx, UIColor.whiteColor().CGColor)
-        CGContextSetLineWidth(ctx, 1)
-        CGContextDrawPath(ctx, .FillStroke)
+        ctx.move(to: CGPoint(x: midX, y: 20))
+        ctx.addLine(to: CGPoint(x: midX, y: midY))
+        ctx.addLine(to: CGPoint(x: midX - 1, y: midY))
+        ctx.move(to: CGPoint(x: midX - 1, y: 20))
+        ctx.setFillColor(UIColor.white.cgColor)
+        ctx.setStrokeColor(UIColor.white.cgColor)
+        ctx.setLineWidth(1)
+        ctx.drawPath(using: .fillStroke)
     }
     
 }
