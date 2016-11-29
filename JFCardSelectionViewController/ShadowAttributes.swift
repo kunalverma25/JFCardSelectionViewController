@@ -31,9 +31,9 @@ struct ShadowAttributes {
         let shadow = NSShadow()
         shadow.shadowOffset = CGSize(width: 0, height: 0)
         shadow.shadowBlurRadius = 1
-        shadow.shadowColor = UIColor.blackColor().colorWithAlphaComponent(0.5)
+        shadow.shadowColor = UIColor.black.withAlphaComponent(0.5)
         return [
-            NSForegroundColorAttributeName: UIColor.whiteColor(),
+            NSForegroundColorAttributeName: UIColor.white,
             NSShadowAttributeName: shadow
         ]
     }
@@ -42,9 +42,9 @@ struct ShadowAttributes {
         let shadow = NSShadow()
         shadow.shadowOffset = CGSize(width: 0, height: 0)
         shadow.shadowBlurRadius = 0.5
-        shadow.shadowColor = UIColor.blackColor().colorWithAlphaComponent(0.7)
+        shadow.shadowColor = UIColor.black.withAlphaComponent(0.7)
         return [
-            NSForegroundColorAttributeName: UIColor.whiteColor(),
+            NSForegroundColorAttributeName: UIColor.white,
             NSShadowAttributeName: shadow
         ]
     }
@@ -53,9 +53,9 @@ struct ShadowAttributes {
         let shadow = NSShadow()
         shadow.shadowOffset = CGSize(width: 0, height: 0)
         shadow.shadowBlurRadius = 1
-        shadow.shadowColor = UIColor.blackColor().colorWithAlphaComponent(1)
+        shadow.shadowColor = UIColor.black.withAlphaComponent(1)
         return [
-            NSForegroundColorAttributeName: UIColor.whiteColor(),
+            NSForegroundColorAttributeName: UIColor.white,
             NSShadowAttributeName: shadow
         ]
     }
