@@ -29,13 +29,13 @@ class AccessoryIndicator: UIControl {
     
     var accessoryColor: UIColor?
     var highlightColor: UIColor?
-    private var facing: Direction?
+    fileprivate var facing: Direction?
 
     enum Direction {
-        case Left, Right //, Up, Down
+        case left, right //, Up, Down
     }
 
-    override var highlighted: Bool {
+    override var isHighlighted: Bool {
         didSet {
             setNeedsDisplay()
         }
@@ -43,77 +43,77 @@ class AccessoryIndicator: UIControl {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        backgroundColor = UIColor.clearColor()
+        backgroundColor = UIColor.clear
     }
 
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
-        backgroundColor = UIColor.clearColor()
+        backgroundColor = UIColor.clear
     }
     
-    class func withColor(color: UIColor, facing: Direction, size: CGSize) -> AccessoryIndicator {
+    class func withColor(_ color: UIColor, facing: Direction, size: CGSize) -> AccessoryIndicator {
         let acc = AccessoryIndicator(frame: CGRect(x: 0, y: 0, width: size.width, height: size.height))
         acc.facing = facing
         acc.accessoryColor = color
         return acc
     }
     
-    override func drawRect(rect: CGRect) {
-        let y = CGRectGetMidY(bounds)
-        let R = CGRectGetHeight(rect)
+    override func draw(_ rect: CGRect) {
+        let y = bounds.midY
+        let R = rect.height
         let ctxt = UIGraphicsGetCurrentContext()
         if let _facing = facing {
             switch _facing {
-            case .Left:
-                let x = CGRectGetMinX(bounds)
-                CGContextMoveToPoint(ctxt, x+R, y+R)
-                CGContextAddLineToPoint(ctxt, x+(R/2), y)
-                CGContextAddLineToPoint(ctxt, x+R, y-R)
-            case .Right:
-                let x = CGRectGetMaxX(bounds)
-                CGContextMoveToPoint(ctxt, x-R, y-R)
-                CGContextAddLineToPoint(ctxt, x-(R/2), y)
-                CGContextAddLineToPoint(ctxt, x-R, y+R)
+            case .left:
+                let x = bounds.minX
+                ctxt?.move(to: CGPoint(x: x+R, y: y+R))
+                ctxt?.addLine(to: CGPoint(x: x+(R/2), y: y))
+                ctxt?.addLine(to: CGPoint(x: x+R, y: y-R))
+            case .right:
+                let x = bounds.maxX
+                ctxt?.move(to: CGPoint(x: x-R, y: y-R))
+                ctxt?.addLine(to: CGPoint(x: x-(R/2), y: y))
+                ctxt?.addLine(to: CGPoint(x: x-R, y: y+R))
             }
         } else {
-            let x = CGRectGetMaxX(bounds)
-            CGContextMoveToPoint(ctxt, x+R, y+R)
-            CGContextAddLineToPoint(ctxt, x+(R/2), y)
-            CGContextAddLineToPoint(ctxt, x+R, y-R)
+            let x = bounds.maxX
+            ctxt?.move(to: CGPoint(x: x+R, y: y+R))
+            ctxt?.addLine(to: CGPoint(x: x+(R/2), y: y))
+            ctxt?.addLine(to: CGPoint(x: x+R, y: y-R))
         }
         
-        CGContextSetLineCap(ctxt, .Square)
-        CGContextSetLineJoin(ctxt, .Miter)
-        CGContextSetLineWidth(ctxt, 1)
-        if highlighted {
+        ctxt?.setLineCap(.square)
+        ctxt?.setLineJoin(.miter)
+        ctxt?.setLineWidth(1)
+        if isHighlighted {
             currentHighlightColor().setStroke()
         } else {
             currentAccessoryColor().setStroke()
         }
-        CGContextStrokePath(ctxt)
+        ctxt?.strokePath()
     }
     
-    private func currentAccessoryColor() -> UIColor {
-        var color = UIColor.blackColor()
+    fileprivate func currentAccessoryColor() -> UIColor {
+        var color = UIColor.black
         if let _accessoryColor = accessoryColor {
             color = _accessoryColor
         }
         return color
     }
     
-    private func currentHighlightColor() -> UIColor {
-        var color = UIColor.whiteColor()
+    fileprivate func currentHighlightColor() -> UIColor {
+        var color = UIColor.white
         if let _highlightColor = highlightColor {
             color = _highlightColor
         }
         return color
     }
     
-    override func intrinsicContentSize() -> CGSize {
+    override var intrinsicContentSize : CGSize {
         return frame.size
     }
     
-    override func alignmentRectInsets() -> UIEdgeInsets {
+    override var alignmentRectInsets : UIEdgeInsets {
         return UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
     }
 
